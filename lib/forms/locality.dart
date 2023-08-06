@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pgvala_saleperson/Onboarding/registerRoom.dart';
 import 'package:pgvala_saleperson/forms/city.dart';
 import 'package:pgvala_saleperson/utils/location_list.dart';
 
@@ -91,10 +92,11 @@ class _LocalityState extends State<Locality> {
                   ),
                   InkWell(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   // MaterialPageRoute(builder: (context) => CityLocation()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => registerRoom()),
+                      );
+
                     },
                     child: Container(
                       height: 38,
@@ -105,7 +107,7 @@ class _LocalityState extends State<Locality> {
                       ),
                       child: Center(
                         child: Text(
-                          'Continue',
+                          'Register',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

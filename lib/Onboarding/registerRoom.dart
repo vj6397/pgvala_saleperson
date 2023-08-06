@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pgvala_saleperson/Onboarding/registerAccomodation.dart';
 import 'package:pgvala_saleperson/utils/location_list.dart';
 
 
@@ -45,7 +46,7 @@ class _registerRoomState extends State<registerRoom> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_rounded)),
+                    IconButton(onPressed: (){Navigator.push(context,MaterialPageRoute(builder: (context)=>landlordform()));}, icon: Icon(Icons.arrow_back_rounded)),
                     SizedBox(height: 15,),
                     Container(
                       margin: EdgeInsets.only(left: 15,bottom: 10),
@@ -143,7 +144,7 @@ class _registerRoomState extends State<registerRoom> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 13.0),
-                              child: Text('Washroom Status ',
+                              child: Text('Status',
                                 style: GoogleFonts.notoSans(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
@@ -281,7 +282,7 @@ class _registerRoomState extends State<registerRoom> {
                     Container(
                       margin: EdgeInsets.only(left: 15),
                       child: Text(
-                        'Accomodation Type',
+                        'Rate Type',
                         style: GoogleFonts.notoSans(
                             fontWeight: FontWeight.w600, fontSize: 12),
                       ),
@@ -387,40 +388,11 @@ class _registerRoomState extends State<registerRoom> {
                       ),
                     ),
                     SizedBox(height: 5),
-                    CheckboxListTile(
-                      title: Text('Remember me'),
-                      checkColor: Colors.white,
-                      value: isChecked,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 5),
-                      onChanged: (bool? value) {
-                        setState(() {
-                          isChecked = value!;
-                        });
-                      },
-                    ),
                     Container(
                       margin: EdgeInsets.only(top: 20,left: 15,right: 15),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
-                            onTap: (){},
-                            child: Container(
-                              height: 38,width: 114,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border:Border.all(width: 1,color: Colors.green),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Center(
-                                child: Text('Cancel',
-                                  style: TextStyle(
-                                      color: Colors.green
-                                  ),),
-                              ),
-                            ),
-                          ),
                           InkWell(
                             onTap: (){
                               //Navigator.push(context, MaterialPageRoute(builder: (context)=> stateLoc()));
@@ -433,7 +405,7 @@ class _registerRoomState extends State<registerRoom> {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Center(
-                                child: Text('Continue',
+                                child: Text('Register',
                                   style: TextStyle(
                                       color: Colors.white
                                   ),),

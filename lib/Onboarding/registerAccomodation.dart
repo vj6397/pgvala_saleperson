@@ -34,11 +34,11 @@ class _landlordformState extends State<landlordform> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_rounded)),
-              SizedBox(height: 10,),
               Container(
-                margin: EdgeInsets.only(top: 40),
+                margin: EdgeInsets.only(top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -247,40 +247,11 @@ class _landlordformState extends State<landlordform> {
                       ),
                     ),
                     SizedBox(height: 15,),
-                    CheckboxListTile(
-                      title: Text('Remember me'),
-                      checkColor: Colors.white,
-                      value: isChecked,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 5),
-                      onChanged: (bool? value) {
-                        setState(() {
-                          isChecked = value!;
-                        });
-                      },
-                    ),
                     Container(
                       margin: EdgeInsets.only(top: 20,left: 15,right: 15),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
-                            onTap: (){},
-                            child: Container(
-                              height: 38,width: 114,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border:Border.all(width: 1,color: Colors.green),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Center(
-                                child: Text('Cancel',
-                                style: TextStyle(
-                                  color: Colors.green
-                                ),),
-                              ),
-                            ),
-                          ),
                           InkWell(
                             onTap: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context)=> stateLoc()));

@@ -1,16 +1,22 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:pgvala_saleperson/Api/request_util.dart';
 import 'package:pgvala_saleperson/Onboarding/registerAccomodation.dart';
 import 'package:pgvala_saleperson/Onboarding/registerRoom.dart';
-
+import 'package:http/http.dart' as http;
 
 class RegisterAnotherRoom extends StatefulWidget {
-  const RegisterAnotherRoom({super.key});
+  RegisterAnotherRoom({required this.accid});
+  String accid;
 
   @override
   State<RegisterAnotherRoom> createState() => _RegisterAnotherRoomState();
 }
 
 class _RegisterAnotherRoomState extends State<RegisterAnotherRoom> {
+  RequestUtil util=new RequestUtil();
+  String roomid='';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,32 +26,18 @@ class _RegisterAnotherRoomState extends State<RegisterAnotherRoom> {
           child: Center(
             child: Column(
               children: [
-                // ElevatedButton(
-                //   onPressed: (){
-                //     Navigator.push(context,MaterialPageRoute(builder: (context)=>registerRoom()));
-                //   },
-                //   child: Text('Register Another Room',
-                //     style: TextStyle(
-                //       fontSize: 14,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(height: 25,),
-                // ElevatedButton(
-                //   onPressed: (){
-                //     Navigator.push(context, MaterialPageRoute(builder: (context)=>landlordform()));
-                //   },
-                //   child: Text('Register Another Apartment',
-                //     style: TextStyle(
-                //       fontSize: 14,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                // )
                 InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> registerRoom()));
+                  onTap: ()async{
+                    http.Response res_roomid= await util.get_roomId(widget.accid);
+                    if(res_roomid.statusCode==200){
+                      print(res_roomid.body);
+                      final Map<String, dynamic> room = jsonDecode(res_roomid.body);
+                      var listroom = room['status'];
+                      print(listroom);
+                      roomid=listroom;
+                    }
+                    else print(res_roomid.body);
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> registerRoom(accid: widget.accid,roomid: roomid)));
                   },
                   child: Container(
                     height: 45,width: 194,

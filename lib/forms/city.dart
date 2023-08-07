@@ -9,6 +9,18 @@ import 'package:http/http.dart' as http;
 
 class CityLocation extends StatefulWidget {
 
+  CityLocation({required this.Apartmentname,required this.Ownername,required this.contact1,required this.contact2,required this.address,required this.email,required this.total_accomodation,required this.state,required this.tenant});
+
+  String Apartmentname ;
+  String Ownername ;
+  String contact1;
+  String contact2;
+  String address;
+  String email;
+  String total_accomodation;
+  String tenant;
+  String state;
+
   @override
   State<CityLocation> createState() => _CityLocationState();
 }
@@ -58,7 +70,7 @@ class _CityLocationState extends State<CityLocation> {
               child: IconButton(
                 icon: Icon(Icons.arrow_back_rounded),
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>stateLoc()));
+                  Navigator.pop(context);
                 },
               ),
             ),
@@ -125,7 +137,7 @@ class _CityLocationState extends State<CityLocation> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Locality()));
+                      MaterialPageRoute(builder: (context) => Locality(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: widget.state, city: dropdownvalue, tenant: widget.tenant)));
                   },
                   child: Container(
                     height: 38,

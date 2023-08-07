@@ -15,17 +15,18 @@ class _landlordformState extends State<landlordform> {
   String Ownername = "";
   String contact1= "";
   String contact2 = "";
+  String address = "";
   String email = "";
   String total_accomodation = "";
   String tenant="";
-  bool isChecked = false;
+  //bool isChecked = false;
 
-  var states_list=states;
+  /*var states_list=states;
   String dropdownvalue = states.first;
   var cities_list=cities;
   String dropdownvalue2 = cities.first;
   var locality_list=localities;
-  String dropdownvalue3 = localities.first;
+  String dropdownvalue3 = localities.first;*/
 
 
   @override
@@ -36,7 +37,6 @@ class _landlordformState extends State<landlordform> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_rounded)),
               Container(
                 margin: EdgeInsets.only(top: 10),
                 child: Column(
@@ -157,6 +157,35 @@ class _landlordformState extends State<landlordform> {
                             hintText: 'Enter Conatct2'),
                       ),
                     ),
+                    SizedBox(height: 20),
+                    Container(
+                      margin: EdgeInsets.only(left: 15),
+                      child: Text(
+                        'Address',
+                        style: GoogleFonts.notoSans(
+                            fontWeight: FontWeight.w600, fontSize: 12),
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Container(
+                      margin: EdgeInsets.only(left: 15, right: 15),
+                      child: TextField(
+                        onChanged: (val) {
+                          address = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 15.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: BorderSide(
+                                color: Colors
+                                    .black, // Set the desired border width here
+                              ),
+                            ),
+                            hintText: 'Enter Address'),
+                      ),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -248,14 +277,15 @@ class _landlordformState extends State<landlordform> {
                     ),
                     SizedBox(height: 15,),
                     Container(
-                      margin: EdgeInsets.only(top: 20,left: 15,right: 15),
+                      margin: EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> stateLoc()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> stateLoc(Apartmentname: Apartmentname, Ownername: Ownername, contact1: contact1, contact2: contact2, address: address, email: email, total_accomodation: total_accomodation, tenant: tenant)));
                             },
+
                             child: Container(
                               height: 38,width: 114,
                               decoration: BoxDecoration(

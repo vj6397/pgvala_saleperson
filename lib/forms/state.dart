@@ -5,7 +5,16 @@ import 'package:pgvala_saleperson/Onboarding/registerAccomodation.dart';
 import 'package:pgvala_saleperson/utils/location_list.dart';
 
 class stateLoc extends StatefulWidget {
+  stateLoc({required this.Apartmentname,required this.Ownername,required this.contact1,required this.contact2,required this.address,required this.email,required this.total_accomodation,required this.tenant});
 
+  String Apartmentname ;
+  String Ownername ;
+  String contact1;
+  String contact2;
+  String address;
+  String email;
+  String total_accomodation;
+  String tenant;
   @override
   State<stateLoc> createState() => _stateLocState();
 }
@@ -93,7 +102,7 @@ class _stateLocState extends State<stateLoc> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CityLocation()),
+                      MaterialPageRoute(builder: (context) => CityLocation(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: dropdownvalue, tenant: widget.tenant)),
                     );
                   },
                   child: Container(

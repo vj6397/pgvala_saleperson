@@ -1,11 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pgvala_saleperson/Api/request_util.dart';
 import 'package:pgvala_saleperson/Onboarding/registerAccomodation.dart';
+import 'package:pgvala_saleperson/Onboarding/registerAnotherRoom.dart';
 import 'package:pgvala_saleperson/utils/location_list.dart';
+import 'package:http/http.dart' as http;
 
 
 class registerRoom extends StatefulWidget {
-  const registerRoom({super.key});
+
+  registerRoom({required this.accid,required this.roomid});
+  String accid;
+  String roomid;
 
   @override
   State<registerRoom> createState() => _registerRoomState();
@@ -14,9 +22,9 @@ class registerRoom extends StatefulWidget {
 class _registerRoomState extends State<registerRoom> {
   String accid = "";
   String roomid = "";
-  String contact1= "";
-  String contact2 = "";
-  String email = "";
+  // String contact1= "";
+  // String contact2 = "";
+  // String email = "";
   String rent_price = "";
   String security_price="";
   String tenant="";
@@ -33,6 +41,7 @@ class _registerRoomState extends State<registerRoom> {
   String dropdownvalueRoomSharing = rooomsharing.first;
   var rate_list=rate;
   String dropdownvalueRate=rate.first;
+  RequestUtil util=new RequestUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +69,7 @@ class _registerRoomState extends State<registerRoom> {
                     Container(
                       margin: EdgeInsets.only(left: 15, right: 15),
                       child: TextField(
+                        enabled: false,
                         keyboardType: TextInputType.text,
                         onChanged: (val) {
                           accid = val;
@@ -74,7 +84,7 @@ class _registerRoomState extends State<registerRoom> {
                                     .black, // Set the desired border width here
                               ),
                             ),
-                            hintText: 'Enter accid'),
+                            hintText: widget.accid),
                       ),
                     ),
                     SizedBox(height: 20),
@@ -90,6 +100,7 @@ class _registerRoomState extends State<registerRoom> {
                     Container(
                       margin: EdgeInsets.only(left: 15, right: 15),
                       child: TextField(
+                        enabled: false,
                         keyboardType: TextInputType.text,
                         onChanged: (val) {
                           roomid = val;
@@ -104,7 +115,7 @@ class _registerRoomState extends State<registerRoom> {
                                     .black, // Set the desired border width here
                               ),
                             ),
-                            hintText: 'Enter Room Id'),
+                            hintText: widget.roomid),
                       ),
                     ),
                     SizedBox(height: 20,),
@@ -394,8 +405,13 @@ class _registerRoomState extends State<registerRoom> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
-                            onTap: (){
-                              //Navigator.push(context, MaterialPageRoute(builder: (context)=> stateLoc()));
+                            onTap: ()async{
+                              http.Response res= await util.register_room(widget.accid,widget.roomid,selectedOptionwashroomStatus,selectedAvailabitystatus,dropdownvalueRoomSharing,rent_price,selectedOptionfurnish,dropdownvalueRate,tenant,security_price);
+                              if(res.statusCode==200){
+                                print(res.body);
+                              }
+                              else print(res.body);
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterAnotherRoom(accid: widget.accid)));
                             },
                             child: Container(
                               height: 38,width: 114,

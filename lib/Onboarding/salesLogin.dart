@@ -3,6 +3,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pgvala_saleperson/Api/request_util.dart';
 import 'package:http/http.dart'as http;
 import 'package:pgvala_saleperson/Onboarding/registerAccomodation.dart';
+import 'package:pgvala_saleperson/utils/location_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class salesLogin extends StatefulWidget {
   const salesLogin({super.key});
@@ -114,12 +116,26 @@ class _salesLoginState extends State<salesLogin> {
                             onTap:()async{
                               if(Sales_id.isNotEmpty && password.isNotEmpty){
                                 http.Response res=await util.sales_logIn(Sales_id, password);
-                                if(res.statusCode==200) print(res.body);
-                                else print(res.body);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context)=>landlordform()),
-                                );
+                                if(res.statusCode==200){
+                                  print(res.body);
+                                  var shr=await SharedPreferences.getInstance();
+                                  shr.setBool(keyVal, true);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context)=>landlordform()),
+                                  );
+                                }
+                                else{
+                                  Fluttertoast.showToast(
+                                      msg: "Enter valid sales_id",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.grey,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0
+                                  );
+                                }
                               }
                               else{
                                 print('hello');

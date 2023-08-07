@@ -26,28 +26,28 @@ class CityLocation extends StatefulWidget {
 }
 
 class _CityLocationState extends State<CityLocation> {
-  var city_list = cities;
-  String dropdownvalue = cities.first;
+  List<String> city_list=[];
+  String dropdownvalue = '';
   RequestUtil util  = new RequestUtil();
   List<dynamic> jsonData=[];
 
   Future<void> _getData() async{
     http.Response response = await util.cityList();
-      if(response.statusCode==200) {
-        print(response.body);
-        // addList();
-        jsonData= jsonDecode(response.body);
-        var i=0;
-        while(i<jsonData.length){
-          setState(() {
-            cities.add(jsonData[i]["city_name"]);
-          });
-        }
-        print(jsonData);
-        print(jsonData[0]["city_name"]);
-        // print(jsonData["apartment_name"]);
+    if(response.statusCode==200) {
+      print(response.body);
+      // addList();
+      jsonData= jsonDecode(response.body);
+      var i=0;
+      while(i<jsonData.length){
+        setState(() {
+          cities.add(jsonData[i]["city_name"]);
+        });
       }
-      else print("error");
+      print(jsonData);
+      print(jsonData[0]["city_name"]);
+      // print(jsonData["apartment_name"]);
+    }
+    else print("error");
   }
 
 
@@ -55,109 +55,109 @@ class _CityLocationState extends State<CityLocation> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // _getData();
+     _getData();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            Positioned(
-              top: 10,
-              left: 15,
-              child: IconButton(
-                icon: Icon(Icons.arrow_back_rounded),
-                onPressed: (){
-                  Navigator.pop(context);
-                },
+          body: Stack(
+            children: [
+              Positioned(
+                top: 10,
+                left: 15,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back_rounded),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
               ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    margin: EdgeInsets.only(left: 1),
-                    child: Text(
-                      'City',
-                      style: GoogleFonts.notoSans(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 1),
+                      child: Text(
+                        'City',
+                        style: GoogleFonts.notoSans(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width-70,
-                  margin: EdgeInsets.only(left: 5, right: 10),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(5),
+                  SizedBox(
+                    height: 10,
                   ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      value: dropdownvalue,
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      isExpanded: true,
-                      menuMaxHeight: 150,
-                      items: city_list.map<DropdownMenuItem<String>>((e) {
-                        return DropdownMenuItem<String>(
-                          value: e,
-                          child: Padding( // Add padding to the DropdownMenuItem to match the style
-                            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                            child: Text(
-                              e.toString(),
-                              style: GoogleFonts.notoSans(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownvalue = newValue!;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Locality(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: widget.state, city: dropdownvalue, tenant: widget.tenant)));
-                  },
-                  child: Container(
-                    height: 38,
-                    width: 114,
+                  Container(
+                    width: MediaQuery.of(context).size.width-70,
+                    margin: EdgeInsets.only(left: 5, right: 10),
                     decoration: BoxDecoration(
-                      color: Colors.green,
+                      border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: Center(
-                      child: Text(
-                        'Continue',
-                        style: TextStyle(color: Colors.white),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: dropdownvalue,
+                        icon: Icon(Icons.keyboard_arrow_down),
+                        isExpanded: true,
+                        menuMaxHeight: 150,
+                        items: city_list.map<DropdownMenuItem<String>>((e) {
+                          return DropdownMenuItem<String>(
+                            value: e,
+                            child: Padding( // Add padding to the DropdownMenuItem to match the style
+                              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                              child: Text(
+                                e.toString(),
+                                style: GoogleFonts.notoSans(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownvalue = newValue!;
+                          });
+                        },
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        )
+                  SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Locality(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: widget.state, city: dropdownvalue!, tenant: widget.tenant)));
+                    },
+                    child: Container(
+                      height: 38,
+                      width: 114,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Continue',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          )
       ),
     );
   }

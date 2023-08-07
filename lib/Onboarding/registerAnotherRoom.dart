@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:pgvala_saleperson/Api/request_util.dart';
 import 'package:pgvala_saleperson/Onboarding/registerAccomodation.dart';

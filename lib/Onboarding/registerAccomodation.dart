@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pgvala_saleperson/forms/state.dart';
-import 'package:pgvala_saleperson/utils/location_list.dart';
+
+import '../utils/location_list.dart';
 
 //register_accomodation.
 class landlordform extends StatefulWidget {

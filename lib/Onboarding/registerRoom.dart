@@ -10,7 +10,6 @@ import 'package:http/http.dart' as http;
 
 
 class registerRoom extends StatefulWidget {
-
   registerRoom({required this.accid,required this.roomid});
   String accid;
   String roomid;

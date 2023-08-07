@@ -28,11 +28,12 @@ class Locality extends StatefulWidget {
 }
 
 class _LocalityState extends State<Locality> {
-  var localities_list = localities;
-  String dropdownvalue = localities.first;
   String accid='';
   String roomid='';
-  RequestUtil util=new RequestUtil();
+  List<String> locality_list=[];
+  String? dropdownvalue = '';
+  RequestUtil util  = new RequestUtil();
+  List<dynamic> jsonData=[];
   //late  Map<String, dynamic> data;
 
   @override
@@ -83,7 +84,7 @@ class _LocalityState extends State<Locality> {
                         icon: Icon(Icons.keyboard_arrow_down),
                         isExpanded: true,
                         menuMaxHeight: 200,
-                        items: localities_list.map<DropdownMenuItem<String>>((e) {
+                        items: locality_list.map<DropdownMenuItem<String>>((e) {
                           return DropdownMenuItem<String>(
                             value: e,
                             child: Padding( // Add padding to the DropdownMenuItem to match the style

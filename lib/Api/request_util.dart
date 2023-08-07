@@ -65,7 +65,7 @@ class RequestUtil{
       headers: {'Authorization': token},
     );
   }
-  Future<http.Response> localityList(city) async{
+  Future<http.Response> localityList(String city) async{
     return  http.get(Uri.parse(endpoint+'get_city_locality_list/?city=$city'),
       headers: {'Authorization': token},
     );
@@ -85,25 +85,51 @@ class RequestUtil{
         headers: {'Authorization': token},
     );
   }
-  Future<http.Response> register_room(accid,roomid,wash_status,status,accomotation_type,rent_price,category,rate,tenant,security_deposit)async{
-    return http.post(Uri.parse(endpoint+'register_accommodation/'),
-        headers: {"accept": "application/json",
-          "Authorization": token,
-          "Content-Type": "application/json"},
-        body:jsonEncode ({
-          "accid": accid,
-          "roomid": roomid,
-          "washroom_status": wash_status,
-          "status": status,
-          "perks": 'perks',
-          "accomotation_type": accomotation_type,
-          "rent_price": rent_price,
-          "category": category,
-          "rate": rate,
-          "tenant": tenant,
-          "security_deposit": security_deposit
-        })
+  // Future<http.Response> register_room(accid,roomid,wash_status,status,accomotation_type,rent_price,category,rate,tenant,security_deposit)async{
+  //   return http.post(Uri.parse(endpoint+'register_accommodation/'),
+  //       headers: {"accept": "application/json",
+  //         "Authorization": token,
+  //         "Content-Type": "application/json"},
+  //       body:jsonEncode ({
+  //         "accid": accid,
+  //         "roomid": roomid,
+  //         "washroom_status": wash_status,
+  //         "status": status,
+  //         "perks": 'perks',
+  //         "accomotation_type": accomotation_type,
+  //         "rent_price": rent_price,
+  //         "category": category,
+  //         "rate": rate,
+  //         "tenant": tenant,
+  //         "security_deposit": security_deposit
+  //       })
+  //   );
+  // }
+  Future<http.Response> register_room(
+      accid, roomid, wash_status, status,perks, accomotation_type,
+      rent_price, category, rate, tenant, security_deposit) async {
+    return http.post(
+      Uri.parse(endpoint + 'register_room/'),
+      headers: {
+        "accept": "application/json",
+        "Authorization": token,
+        "Content-Type": "application/json"
+      },
+      body: jsonEncode({
+        "accid": accid,
+        "roomid": roomid,
+        "washroom_status": wash_status,
+        "status": status,
+        "perks": perks,
+        "accomotation_type": accomotation_type,
+        "rent_price": rent_price,
+        "category": category,
+        "rate": rate,
+        "tenant": tenant,
+        "security_deposit": security_deposit
+      }),
     );
   }
+
 
 }

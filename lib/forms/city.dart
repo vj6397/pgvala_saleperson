@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pgvala_saleperson/forms/locality.dart';
 import 'package:pgvala_saleperson/forms/state.dart';
 import 'package:pgvala_saleperson/Api/request_util.dart';
@@ -27,7 +28,7 @@ class CityLocation extends StatefulWidget {
 
 class _CityLocationState extends State<CityLocation> {
   List<String> city_list=[];
-  String dropdownvalue = '';
+  String? dropdownvalue;
   RequestUtil util  = new RequestUtil();
   List<dynamic> jsonData=[];
 
@@ -40,8 +41,9 @@ class _CityLocationState extends State<CityLocation> {
       var i=0;
       while(i<jsonData.length){
         setState(() {
-          cities.add(jsonData[i]["city_name"]);
+          city_list.add(jsonData[i]["city_name"]);
         });
+        i++;
       }
       print(jsonData);
       print(jsonData[0]["city_name"]);
@@ -135,9 +137,22 @@ class _CityLocationState extends State<CityLocation> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Locality(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: widget.state, city: dropdownvalue!, tenant: widget.tenant)));
+                      if(dropdownvalue!=null){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Locality(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: widget.state, city: dropdownvalue!, tenant: widget.tenant)));
+                      }
+                      else{
+                        Fluttertoast.showToast(
+                            msg: "Select city",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.grey,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                      }
                     },
                     child: Container(
                       height: 38,

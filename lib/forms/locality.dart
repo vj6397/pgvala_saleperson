@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pgvala_saleperson/Api/request_util.dart';
 import 'package:pgvala_saleperson/Onboarding/registerRoom.dart';
@@ -31,10 +32,35 @@ class _LocalityState extends State<Locality> {
   String accid='';
   String roomid='';
   List<String> locality_list=[];
-  String? dropdownvalue = '';
+  String? dropdownvalue;
   RequestUtil util  = new RequestUtil();
   List<dynamic> jsonData=[];
   //late  Map<String, dynamic> data;
+  Future<void> _getData() async{
+    http.Response response = await util.localityList(widget.city);
+    if(response.statusCode==200) {
+      print(response.body);
+      // addList();
+      jsonData= jsonDecode(response.body);
+      var i=0;
+      while(i<jsonData.length){
+        setState(() {
+          locality_list.add(jsonData[i]["locality"]);
+        });
+        i++;
+      }
+      print(jsonData);
+      print(jsonData[0]["locality"]);
+      // print(jsonData["apartment_name"]);
+    }
+    else print("error");
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,31 +139,45 @@ class _LocalityState extends State<Locality> {
                   ),
                   InkWell(
                     onTap: () async{
-                      http.Response res_accid= await util.register_Accomodation(widget.Apartmentname, widget.Ownername, widget.contact1, widget.contact2, widget.address, widget.email, widget.total_accomodation, widget.state, widget.city, dropdownvalue, widget.tenant);
-                      if(res_accid.statusCode==200){
-                        print(res_accid.body);
-                        final Map<String, dynamic> data = jsonDecode(res_accid.body);
-                        var listAccId = data["accommodation_id"];
-                        var l = data["accommodation_id"].length;
-                        print(listAccId[l-1]['entery_id']);
-                        print(listAccId[l-1]['accid']);
-                        accid=listAccId[l-1]['accid'];
-                        // print(data["accid"]);
+                      if(dropdownvalue!=null){
+                        http.Response res_accid= await util.register_Accomodation(widget.Apartmentname, widget.Ownername, widget.contact1, widget.contact2, widget.address, widget.email, widget.total_accomodation, widget.state, widget.city, dropdownvalue, widget.tenant);
+                        if(res_accid.statusCode==200){
+                          print(res_accid.body);
+                          final Map<String, dynamic> data = jsonDecode(res_accid.body);
+                          var listAccId = data["accommodation_id"];
+                          var l = data["accommodation_id"].length;
+                          print(listAccId[l-1]['entery_id']);
+                          print(listAccId[l-1]['accid']);
+                          accid=listAccId[l-1]['accid'];
+                          // print(data["accid"]);
+                        }
+                        else print(res_accid.body);
+                        http.Response res_roomid= await util.get_roomId(accid);
+                        if(res_roomid.statusCode==200){
+                          print(res_roomid.body);
+                          final Map<String, dynamic> room = jsonDecode(res_roomid.body);
+                          var listroom = room['status'];
+                          print(listroom);
+                          roomid=listroom;
+                        }
+                        else print(res_roomid.body);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => registerRoom(accid: accid, roomid: roomid)),
+                        );
                       }
-                      else print(res_accid.body);
-                      http.Response res_roomid= await util.get_roomId(accid);
-                      if(res_roomid.statusCode==200){
-                        print(res_roomid.body);
-                        final Map<String, dynamic> room = jsonDecode(res_roomid.body);
-                        var listroom = room['status'];
-                        print(listroom);
-                        roomid=listroom;
+                      else{
+                        Fluttertoast.showToast(
+                            msg: "Select locality",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.grey,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
                       }
-                      else print(res_roomid.body);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => registerRoom(accid: accid, roomid: roomid)),
-                      );
+
                     },
                     child: Container(
                       height: 38,

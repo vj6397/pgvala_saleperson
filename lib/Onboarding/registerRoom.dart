@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pgvala_saleperson/Api/request_util.dart';
 import 'package:pgvala_saleperson/Onboarding/registerAccomodation.dart';
@@ -399,18 +400,31 @@ class _registerRoomState extends State<registerRoom> {
                     ),
                     SizedBox(height: 5),
                     Container(
-                      margin: EdgeInsets.only(top: 20,left: 15,right: 15),
+                      margin: EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
                             onTap: ()async{
-                              http.Response res= await util.register_room(widget.accid,widget.roomid,selectedOptionwashroomStatus,selectedAvailabitystatus,dropdownvalueRoomSharing,rent_price,selectedOptionfurnish,dropdownvalueRate,tenant,security_price);
+                              http.Response res= await util.register_room(widget.accid,widget.roomid,
+                                  selectedOptionwashroomStatus,selectedAvailabitystatus,'perks',dropdownvalueRoomSharing,
+                                  rent_price, selectedOptionfurnish,dropdownvalueRate,tenant,security_price);
                               if(res.statusCode==200){
                                 print(res.body);
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterAnotherRoom(accid: widget.accid)));
                               }
-                              else print(res.body);
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterAnotherRoom(accid: widget.accid)));
+                              else {
+                                print(res.body);
+                                Fluttertoast.showToast(
+                                    msg: "Enter all details",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.grey,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0
+                                );
+                              }
                             },
                             child: Container(
                               height: 38,width: 114,

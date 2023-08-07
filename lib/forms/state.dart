@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:pgvala_saleperson/forms/city.dart';
 import 'package:pgvala_saleperson/Onboarding/registerAccomodation.dart';
-import 'package:pgvala_saleperson/utils/location_list.dart';
 
 import '../Api/request_util.dart';
 
@@ -24,13 +24,9 @@ class stateLoc extends StatefulWidget {
 }
 
 
-
-
-
-
 class _stateLocState extends State<stateLoc> {
   List<String> state_list = [];
-  String? dropdownvalue = '';
+  String? dropdownvalue;
   RequestUtil util  = new RequestUtil();
   List<dynamic> jsonData=[];
 
@@ -43,7 +39,7 @@ class _stateLocState extends State<stateLoc> {
       var i=0;
       while(i<jsonData.length){
         setState(() {
-          cities.add(jsonData[i]["state"]);
+          state_list.add(jsonData[i]["state"]);
         });
         i++;
       }
@@ -139,10 +135,23 @@ class _stateLocState extends State<stateLoc> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CityLocation(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: dropdownvalue!, tenant: widget.tenant)),
-                      );
+                      if(dropdownvalue!=null){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CityLocation(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: dropdownvalue!, tenant: widget.tenant)),
+                        );
+                      }
+                      else{
+                        Fluttertoast.showToast(
+                            msg: "Select State",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.grey,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                      }
                     },
                     child: Container(
                       height: 38,

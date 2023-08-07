@@ -34,9 +34,9 @@ class _RegisterAnotherRoomState extends State<RegisterAnotherRoom> {
                       var listroom = room['status'];
                       print(listroom);
                       roomid=listroom;
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> registerRoom(accid: widget.accid,roomid: roomid)));
                     }
                     else print(res_roomid.body);
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> registerRoom(accid: widget.accid,roomid: roomid)));
                   },
                   child: Container(
                     height: 45,width: 194,

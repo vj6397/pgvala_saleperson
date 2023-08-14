@@ -10,7 +10,7 @@ import 'package:pgvala_saleperson/Onboarding/registerAccomodation.dart';
 import '../Api/request_util.dart';
 
 class stateLoc extends StatefulWidget {
-  stateLoc({required this.Apartmentname,required this.Ownername,required this.contact1,required this.contact2,required this.address,required this.email,required this.total_accomodation,required this.tenant});
+  stateLoc({required this.Apartmentname,required this.Ownername,required this.contact1,required this.contact2,required this.address,required this.email,required this.total_accomodation,required this.tenant,required this.qrid});
   String Apartmentname ;
   String Ownername ;
   String contact1;
@@ -19,6 +19,7 @@ class stateLoc extends StatefulWidget {
   String email;
   String total_accomodation;
   String tenant;
+  String qrid;
   @override
   State<stateLoc> createState() => _stateLocState();
 }
@@ -138,7 +139,7 @@ class _stateLocState extends State<stateLoc> {
                       if(dropdownvalue!=null){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => CityLocation(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: dropdownvalue!, tenant: widget.tenant)),
+                          MaterialPageRoute(builder: (context) => CityLocation(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: dropdownvalue!, tenant: widget.tenant, qrid: widget.qrid)),
                         );
                       }
                       else{

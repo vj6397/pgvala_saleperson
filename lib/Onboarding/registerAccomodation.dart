@@ -20,6 +20,7 @@ class _landlordformState extends State<landlordform> {
   String email = "";
   String total_accomodation = "";
   String tenant="";
+  String qrid1='';
   //bool isChecked = false;
 
   /*var states_list=states;
@@ -276,7 +277,36 @@ class _landlordformState extends State<landlordform> {
                             hintText: 'Enter tenant details'),
                       ),
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 15),
+                    Container(
+                      margin: EdgeInsets.only(left: 15),
+                      child: Text(
+                        'Qr id',
+                        style: GoogleFonts.notoSans(
+                            fontWeight: FontWeight.w600, fontSize: 12),
+                      ),
+                    ),
+                    SizedBox(height: 5,),
+                    Container(
+                      margin: EdgeInsets.only(left: 15, right: 15),
+                      child: TextField(
+                        onChanged: (val) {
+                          qrid1 = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 15.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: BorderSide(
+                                color: Colors
+                                    .black, // Set the desired border width here
+                              ),
+                            ),
+                            hintText: 'Enter Qr id'),
+                      ),
+                    ),
+                    SizedBox(height: 15),
                     Container(
                       margin: EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 15),
                       child: Row(
@@ -284,7 +314,7 @@ class _landlordformState extends State<landlordform> {
                         children: [
                           InkWell(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> stateLoc(Apartmentname: Apartmentname, Ownername: Ownername, contact1: contact1, contact2: contact2, address: address, email: email, total_accomodation: total_accomodation, tenant: tenant)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> stateLoc(Apartmentname: Apartmentname, Ownername: Ownername, contact1: contact1, contact2: contact2, address: address, email: email, total_accomodation: total_accomodation, tenant: tenant,qrid:qrid1)));
                             },
 
                             child: Container(

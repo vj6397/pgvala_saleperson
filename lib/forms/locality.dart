@@ -12,7 +12,7 @@ import 'package:http/http.dart'as http;
 
 class Locality extends StatefulWidget {
 
-  Locality({required this.Apartmentname,required this.Ownername,required this.contact1,required this.contact2,required this.address,required this.email,required this.total_accomodation,required this.state,required this.city,required this.tenant});
+  Locality({required this.Apartmentname,required this.Ownername,required this.contact1,required this.contact2,required this.address,required this.email,required this.total_accomodation,required this.state,required this.city,required this.tenant,required this.qrid});
 
   String Apartmentname ;
   String Ownername ;
@@ -24,6 +24,8 @@ class Locality extends StatefulWidget {
   String tenant;
   String state;
   String city;
+  String qrid;
+
   @override
   State<Locality> createState() => _LocalityState();
 }
@@ -140,7 +142,7 @@ class _LocalityState extends State<Locality> {
                   InkWell(
                     onTap: () async{
                       if(dropdownvalue!=null){
-                        http.Response res_accid= await util.register_Accomodation(widget.Apartmentname, widget.Ownername, widget.contact1, widget.contact2, widget.address, widget.email, widget.total_accomodation, widget.state, widget.city, dropdownvalue, widget.tenant);
+                        http.Response res_accid= await util.register_Accomodation(widget.Apartmentname, widget.Ownername, widget.contact1, widget.contact2, widget.address, widget.email, widget.total_accomodation, widget.state, widget.city, dropdownvalue, widget.tenant,widget.qrid);
                         if(res_accid.statusCode==200){
                           print(res_accid.body);
                           final Map<String, dynamic> data = jsonDecode(res_accid.body);

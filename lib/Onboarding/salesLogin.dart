@@ -126,7 +126,10 @@ class _salesLoginState extends State<salesLogin> {
                                   );
                                 }
                                 else{
-
+                                  print(res.body);
+                                  print(res.statusCode);
+                                  print(Sales_id);
+                                  print(password);
                                   Fluttertoast.showToast(
                                       msg: "Enter valid sales_id",
                                       toastLength: Toast.LENGTH_SHORT,
@@ -139,7 +142,6 @@ class _salesLoginState extends State<salesLogin> {
                                 }
                               }
                               else{
-                                print('hello');
                                 Fluttertoast.showToast(
                                     msg: "Enter valid sales_id",
                                     toastLength: Toast.LENGTH_SHORT,

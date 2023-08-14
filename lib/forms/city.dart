@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 
 class CityLocation extends StatefulWidget {
 
-  CityLocation({required this.Apartmentname,required this.Ownername,required this.contact1,required this.contact2,required this.address,required this.email,required this.total_accomodation,required this.state,required this.tenant});
+  CityLocation({required this.Apartmentname,required this.Ownername,required this.contact1,required this.contact2,required this.address,required this.email,required this.total_accomodation,required this.state,required this.tenant,required this.qrid});
 
   String Apartmentname ;
   String Ownername ;
@@ -21,6 +21,7 @@ class CityLocation extends StatefulWidget {
   String total_accomodation;
   String tenant;
   String state;
+  String qrid;
 
   @override
   State<CityLocation> createState() => _CityLocationState();
@@ -140,7 +141,7 @@ class _CityLocationState extends State<CityLocation> {
                       if(dropdownvalue!=null){
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Locality(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: widget.state, city: dropdownvalue!, tenant: widget.tenant)));
+                            MaterialPageRoute(builder: (context) => Locality(Apartmentname: widget.Apartmentname, Ownername: widget.Ownername, contact1: widget.contact1, contact2: widget.contact2, address: widget.address, email: widget.email, total_accomodation: widget.total_accomodation, state: widget.state, city: dropdownvalue!, tenant: widget.tenant, qrid: widget.qrid)));
                       }
                       else{
                         Fluttertoast.showToast(

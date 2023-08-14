@@ -22,6 +22,7 @@ class registerRoom extends StatefulWidget {
 class _registerRoomState extends State<registerRoom> {
   String accid = "";
   String roomid = "";
+  String perks="";
   // String contact1= "";
   // String contact2 = "";
   // String email = "";
@@ -398,6 +399,36 @@ class _registerRoomState extends State<registerRoom> {
                             hintText: 'Enter Security Deposit'),
                       ),
                     ),
+                    SizedBox(height: 15),
+                    Container(
+                      margin: EdgeInsets.only(left: 15),
+                      child: Text(
+                        'Perks',
+                        style: GoogleFonts.notoSans(
+                            fontWeight: FontWeight.w600, fontSize: 12),
+                      ),
+                    ),
+                    SizedBox(height: 5,),
+                    Container(
+                      margin: EdgeInsets.only(left: 15, right: 15),
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        onChanged: (val) {
+                          security_price = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 15.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: BorderSide(
+                                color: Colors
+                                    .black, // Set the desired border width here
+                              ),
+                            ),
+                            hintText: 'Enter Perks'),
+                      ),
+                    ),
                     SizedBox(height: 5),
                     Container(
                       margin: EdgeInsets.only(top: 20,left: 15,right: 15,bottom: 15),
@@ -407,8 +438,8 @@ class _registerRoomState extends State<registerRoom> {
                           InkWell(
                             onTap: ()async{
                               http.Response res= await util.register_room(widget.accid,widget.roomid,
-                                  selectedOptionwashroomStatus,selectedAvailabitystatus,'perks',dropdownvalueRoomSharing,
-                                  rent_price, selectedOptionfurnish,dropdownvalueRate,tenant,security_price);
+                                  selectedOptionwashroomStatus,selectedAvailabitystatus,dropdownvalueRoomSharing,
+                                  rent_price, selectedOptionfurnish,dropdownvalueRate,tenant,security_price,perks);
                               if(res.statusCode==200){
                                 print(res.body);
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterAnotherRoom(accid: widget.accid)));

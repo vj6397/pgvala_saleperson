@@ -154,7 +154,7 @@ class _salesLoginState extends State<salesLogin> {
                               }
                             },
                             child: Center(
-                              child: Text('Register',style: TextStyle(
+                              child: Text('Log in',style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,12 +8,10 @@ import 'package:pgvala_saleperson/Onboarding/registerAnotherRoom.dart';
 import 'package:pgvala_saleperson/utils/location_list.dart';
 import 'package:http/http.dart' as http;
 
-
 class registerRoom extends StatefulWidget {
   registerRoom({required this.accid,required this.roomid});
   String accid;
   String roomid;
-
   @override
   State<registerRoom> createState() => _registerRoomState();
 }
@@ -23,14 +20,11 @@ class _registerRoomState extends State<registerRoom> {
   String accid = "";
   String roomid = "";
   String perks="";
-  // String contact1= "";
-  // String contact2 = "";
-  // String email = "";
   String rent_price = "";
   String security_price="";
   String tenant="";
   bool isChecked = false;
-  List radioOptionwashroomStatus=['Attached','Not Attached'];
+  List radioOptionwashroomStatus=['Attached','Common'];
   String? selectedOptionwashroomStatus;
   List radioOptionAvailabitystatus=['Booked','Available'];
   String? selectedAvailabitystatus;
@@ -385,6 +379,7 @@ class _registerRoomState extends State<registerRoom> {
                         keyboardType: TextInputType.number,
                         onChanged: (val) {
                           security_price = val;
+                          print(security_price);
                         },
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
@@ -414,7 +409,8 @@ class _registerRoomState extends State<registerRoom> {
                       child: TextField(
                         keyboardType: TextInputType.number,
                         onChanged: (val) {
-                          security_price = val;
+                          perks = val;
+                          print(perks);
                         },
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
@@ -426,7 +422,7 @@ class _registerRoomState extends State<registerRoom> {
                                     .black, // Set the desired border width here
                               ),
                             ),
-                            hintText: 'Enter Perks'),
+                            hintText: 'Specify Perks by using ,'),
                       ),
                     ),
                     SizedBox(height: 5),
@@ -439,7 +435,8 @@ class _registerRoomState extends State<registerRoom> {
                             onTap: ()async{
                               http.Response res= await util.register_room(widget.accid,widget.roomid,
                                   selectedOptionwashroomStatus,selectedAvailabitystatus,dropdownvalueRoomSharing,
-                                  rent_price, selectedOptionfurnish,dropdownvalueRate,tenant,security_price,perks);
+                                  rent_price,selectedOptionfurnish,dropdownvalueRate,tenant,security_price,perks);
+                              print(perks);
                               if(res.statusCode==200){
                                 print(res.body);
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterAnotherRoom(accid: widget.accid)));
